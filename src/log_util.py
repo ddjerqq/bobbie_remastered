@@ -1,7 +1,6 @@
 import datetime
 import logging
 import os
-import threading as th
 
 import requests
 from dotenv import load_dotenv
