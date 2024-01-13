@@ -49,5 +49,3 @@ logger.addHandler(file_handler)
 webhook_handler = WebhookHandler()
 webhook_handler.setFormatter(formatter)
 logger.addHandler(webhook_handler)
-
-logger.info("bot running supaaa fast")
