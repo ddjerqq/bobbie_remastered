@@ -30,7 +30,7 @@ class Fun(commands.Cog, name="fun"):
         embed = discord.Embed(description="What is your bet?", color=0xBEBEFE)
         message = await context.send(embed=embed, view=buttons)
 
-        await buttons.wait()  # We wait for the user to click a button.
+        await buttons.wait()
         result = random.choice(["heads", "tails"])
 
         if buttons.value == result:

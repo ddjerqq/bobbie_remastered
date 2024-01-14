@@ -7,11 +7,11 @@ class Choice(discord.ui.View):
         self.value = None
 
     @discord.ui.button(label="Heads", style=discord.ButtonStyle.blurple)
-    async def confirm(self, _) -> None:
+    async def confirm(self, *_) -> None:
         self.value = "heads"
         self.stop()
 
     @discord.ui.button(label="Tails", style=discord.ButtonStyle.blurple)
-    async def cancel(self, _) -> None:
+    async def cancel(self, *_) -> None:
         self.value = "tails"
         self.stop()
