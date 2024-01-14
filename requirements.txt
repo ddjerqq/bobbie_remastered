@@ -1,3 +1,6 @@
 aiohttp
+requests
 discord.py
 python-dotenv
+dependency-injector
+mediatr

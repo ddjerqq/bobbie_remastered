@@ -9,7 +9,7 @@ from discord.ext import commands
 from discord.ext.commands import Context
 
 if TYPE_CHECKING:
-    from src.bot import DiscordBot
+    from bot.discord_bot import DiscordBot
 
 
 class General(commands.Cog, name="general"):

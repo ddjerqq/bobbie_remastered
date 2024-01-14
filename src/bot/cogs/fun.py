@@ -6,7 +6,7 @@ from discord.ext.commands import Context
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.bot import DiscordBot
+    from bot.discord_bot import DiscordBot
 
 
 class Choice(discord.ui.View):
