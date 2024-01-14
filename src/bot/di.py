@@ -33,7 +33,6 @@ class AuthService(BaseService):
         super().__init__()
 
     def authenticate(self, user: Dict[str, str], password: str) -> None:
-        assert password is not None
         self.logger.debug(
             "User %s has been successfully authenticated",
             user["email"],
@@ -41,16 +40,11 @@ class AuthService(BaseService):
 
 
 class Container(containers.DeclarativeContainer):
+    config = providers.Configuration(ini_files=["config.ini"])
+
     database_client = providers.Singleton(
         sqlite3.connect,
         os.environ["DATABASE__PATH"],
-    )
-
-    config = providers.Configuration(ini_files=["config.ini"])
-
-    logging = providers.Resource(
-        config.fileConfig,
-        fname="logging.ini",
     )
 
     user_service = providers.Factory(

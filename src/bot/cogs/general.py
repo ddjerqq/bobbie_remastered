@@ -38,7 +38,7 @@ class General(commands.Cog, name="general"):
     @commands.hybrid_command(
         name="help",
         description="List all commands the bot has loaded.",
-        guild_id=os.environ["BOT__TESTING_GUILD"],
+        guild_ids=[os.environ["BOT__TESTING_GUILD"]],
     )
     async def help(self, context: Context) -> None:
         prefix = os.environ["BOT__PREFIX"]
@@ -65,7 +65,7 @@ class General(commands.Cog, name="general"):
     @commands.hybrid_command(
         name="ping",
         description="Check if the bot is alive.",
-        guild_id=os.environ["BOT__TESTING_GUILD"],
+        guild_ids=[os.environ["BOT__TESTING_GUILD"]],
     )
     async def ping(self, context: Context) -> None:
         embed = discord.Embed(
@@ -78,7 +78,7 @@ class General(commands.Cog, name="general"):
     @commands.hybrid_command(
         name="8ball",
         description="Ask any question to the bot.",
-        guild_id=os.environ["BOT__TESTING_GUILD"],
+        guild_ids=[os.environ["BOT__TESTING_GUILD"]],
     )
     @app_commands.describe(question="The question you want to ask.")
     async def eight_ball(self, context: Context, *, question: str) -> None:
@@ -121,7 +121,7 @@ class General(commands.Cog, name="general"):
     @commands.hybrid_command(
         name="bitcoin",
         description="Get the current price of bitcoin.",
-        guild_id=os.environ["BOT__TESTING_GUILD"],
+        guild_ids=[os.environ["BOT__TESTING_GUILD"]],
     )
     async def bitcoin(self, context: Context) -> None:
         """

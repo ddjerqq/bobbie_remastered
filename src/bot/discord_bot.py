@@ -1,6 +1,9 @@
 import logging
 import os
 import platform
+
+from mediatr import Mediator
+
 import log_util
 from itertools import cycle
 import discord
@@ -18,11 +21,11 @@ class DiscordBot(commands.Bot):
             help_command=None,
         )
         self.logger = log_util.logger
+        self.mediator = Mediator()
         self.database = None
 
     @tasks.loop(minutes=1.0)
     async def status_task(self) -> None:
-        # TODO change this to a invite button.
         statuses = cycle(["watching u", "oxidizing", "unhinged"])
         await self.change_presence(activity=discord.Game(next(statuses)))
 

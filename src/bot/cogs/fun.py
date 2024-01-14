@@ -23,7 +23,7 @@ class Fun(commands.Cog, name="fun"):
     @commands.hybrid_command(
         name="coinflip",
         description="Make a coin flip, but give your bet before.",
-        guild_id=os.environ["BOT__TESTING_GUILD"],
+        guild_ids=[os.environ["BOT__TESTING_GUILD"]],
     )
     async def coinflip(self, context: Context) -> None:
         buttons = Choice()
@@ -48,7 +48,7 @@ class Fun(commands.Cog, name="fun"):
     @commands.hybrid_command(
         name="rps",
         description="Play the rock paper scissors game against the bot.",
-        guild_id=os.environ["BOT__TESTING_GUILD"],
+        guild_ids=[os.environ["BOT__TESTING_GUILD"]],
     )
     async def rock_paper_scissors(self, context: Context) -> None:
         view = RockPaperScissorsView()
