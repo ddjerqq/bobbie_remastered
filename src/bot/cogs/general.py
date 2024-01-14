@@ -1,3 +1,4 @@
+from __future__ import annotations
 import os
 import random
 from typing import TYPE_CHECKING
@@ -8,6 +9,8 @@ from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import Context
 
+from bot import logger
+
 if TYPE_CHECKING:
     from bot.discord_bot import DiscordBot
 
@@ -17,14 +20,14 @@ class General(commands.Cog, name="general"):
         self.bot = bot
         self.context_menu_user = app_commands.ContextMenu(
             name="Grab ID",
-            callback=self.grab_id
+            callback=self._grab_id
         )
         self.bot.tree.add_command(self.context_menu_user)
 
-    async def grab_id(
+    async def _grab_id(
             self,
             interaction: discord.Interaction,
-            user: discord.User
+            user: discord.User,
     ) -> None:
         embed = discord.Embed(
             description=f"The ID of {user.mention} is `{user.id}`.",
@@ -33,7 +36,9 @@ class General(commands.Cog, name="general"):
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
     @commands.hybrid_command(
-        name="help", description="List all commands the bot has loaded."
+        name="help",
+        description="List all commands the bot has loaded.",
+        guild_id=os.environ["BOT__TESTING_GUILD"],
     )
     async def help(self, context: Context) -> None:
         prefix = os.environ["BOT__PREFIX"]
@@ -60,6 +65,7 @@ class General(commands.Cog, name="general"):
     @commands.hybrid_command(
         name="ping",
         description="Check if the bot is alive.",
+        guild_id=os.environ["BOT__TESTING_GUILD"],
     )
     async def ping(self, context: Context) -> None:
         embed = discord.Embed(
@@ -72,6 +78,7 @@ class General(commands.Cog, name="general"):
     @commands.hybrid_command(
         name="8ball",
         description="Ask any question to the bot.",
+        guild_id=os.environ["BOT__TESTING_GUILD"],
     )
     @app_commands.describe(question="The question you want to ask.")
     async def eight_ball(self, context: Context, *, question: str) -> None:
@@ -114,6 +121,7 @@ class General(commands.Cog, name="general"):
     @commands.hybrid_command(
         name="bitcoin",
         description="Get the current price of bitcoin.",
+        guild_id=os.environ["BOT__TESTING_GUILD"],
     )
     async def bitcoin(self, context: Context) -> None:
         """
@@ -126,12 +134,10 @@ class General(commands.Cog, name="general"):
                     "https://api.coindesk.com/v1/bpi/currentprice/BTC.json"
             ) as request:
                 if request.status == 200:
-                    data = await request.json(
-                        content_type="application/javascript"
-                    )  # For some reason the returned content is of type JavaScript
+                    data = await request.json()
                     embed = discord.Embed(
                         title="Bitcoin price",
-                        description=f"The current price is {data['bpi']['USD']['rate']} :dollar:",
+                        description=f"The current price is ${data['bpi']['USD']['rate']} :dollar:",
                         color=0xBEBEFE,
                     )
                 else:
@@ -144,4 +150,5 @@ class General(commands.Cog, name="general"):
 
 
 async def setup(bot) -> None:
+    logger.info("Loading general cog...")
     await bot.add_cog(General(bot))

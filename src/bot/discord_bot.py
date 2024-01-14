@@ -1,3 +1,4 @@
+import logging
 import os
 import platform
 import log_util
@@ -111,6 +112,7 @@ class DiscordBot(commands.Bot):
             )
             await context.send(embed=embed)
         else:
+            logging.error(error)
             raise error
 
     async def _load_cogs(self) -> None:
