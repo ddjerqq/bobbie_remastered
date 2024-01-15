@@ -23,5 +23,3 @@ class Rarity(float):
     def __repr__(self):
         return f"<Rarity {self.name} {super().__repr__(self)}>"
 
-    def __str__(self):
-        return self.name
